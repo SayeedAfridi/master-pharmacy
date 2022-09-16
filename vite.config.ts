@@ -1,9 +1,38 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import vitePluginImp from 'vite-plugin-imp';
+import { getThemeVariables } from 'antd/dist/theme.js';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+
+    //configuring ant design with imp
+    vitePluginImp({
+      optimize: true,
+      libList: [
+        {
+          libName: 'antd',
+          libDirectory: 'es',
+          style: (name) => `antd/es/${name}/style`,
+        }
+      ]
+    })
+  ],
+
+  // ant-design less loader
+  css: {
+    preprocessorOptions: {
+      less: {
+        modifyVars: getThemeVariables({
+          dark: true,
+          // 'primary-color': '#13c2c2'
+        }),
+        javascriptEnabled: true,
+      },
+    },
+  },
 
   // Vite optons tailored for Tauri development and only applied in `tauri dev` or `tauri build`
   // prevent vite from obscuring rust errors
