@@ -6,12 +6,25 @@
     "distDir": "../dist"
   },
   "package": {
-    "productName": "master-pharmacy",
+    "productName": "Master Pharmacy",
     "version": "0.0.0"
   },
   "tauri": {
     "allowlist": {
-      "all": true
+      "all": true,
+      "fs": {
+        "all": true,
+        "copyFile": true,
+        "createDir": true,
+        "exists": true,
+        "readDir": true,
+        "readFile": true,
+        "removeDir": true,
+        "removeFile": true,
+        "renameFile": true,
+        "scope": ["$HOME/*", "$DOCUMENT/*", "$APP/*"],
+        "writeFile": true
+      }
     },
     "bundle": {
       "active": true,
@@ -28,7 +41,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "dev.afridi1.pharmacy",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
