@@ -1,14 +1,11 @@
-import { useState } from 'react';
-import { invoke } from '@tauri-apps/api/tauri';
-import { Button, Col, Input, Row } from 'antd';
+import { selectAppOpenCount } from '@src/lib/redux/app/app.selsectors';
+import { appActions } from '@src/lib/redux/app/app.slice';
+import { Button, Col, Row } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
-  const [greetMsg, setGreetMsg] = useState('');
-  const [name, setName] = useState('');
-
-  async function greet() {
-    setGreetMsg(await invoke('greet', { name }));
-  }
+  const appOpenCount = useSelector(selectAppOpenCount);
+  const dispatch = useDispatch();
 
   return (
     <div
@@ -22,19 +19,15 @@ function App() {
       <h1>Welcome to Tauri!</h1>
       <Row gutter={[8, 8]}>
         <Col>
-          <Input
-            id='greet-input'
-            onChange={(e) => setName(e.currentTarget.value)}
-            placeholder='Enter a name...'
-          />
-        </Col>
-        <Col>
-          <Button type='primary' onClick={greet}>
-            Greet
+          <Button
+            type='primary'
+            onClick={() => dispatch(appActions.increaseOpenCount())}
+          >
+            Increase Open Count
           </Button>
         </Col>
       </Row>
-      <p>{greetMsg}</p>
+      <p>app open count: {appOpenCount}</p>
     </div>
   );
 }
