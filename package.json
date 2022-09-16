@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
@@ -24,18 +25,49 @@
     "@typescript-eslint/eslint-plugin": "^5.37.0",
     "@typescript-eslint/parser": "^5.37.0",
     "@vitejs/plugin-react": "^2.0.0",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.23.1",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.8",
     "eslint-plugin-standard": "^5.0.0",
+    "husky": "^8.0.1",
     "less": "^4.1.3",
     "less-loader": "^11.0.0",
+    "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
     "prettier-eslint": "^15.0.1",
     "typescript": "^4.6.4",
     "vite": "^3.0.2",
     "vite-plugin-imp": "^2.3.0"
-  }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx}": [
+      "eslint"
+    ]
+  },
+  "author": {
+    "name": "Sayeed Afridi",
+    "email": "as.afridi563@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SayeedAfridi/master-pharmacy.git"
+  },
+  "license": "MIT",
+  "keywords": [
+    "pharmacy management",
+    "master pharmacy",
+    "tauri-app",
+    "vite",
+    "react",
+    "react-tauri",
+    "tauri"
+  ]
 }
