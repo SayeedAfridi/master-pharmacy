@@ -7,3 +7,8 @@ export const selectAppOpenCount = createSelector(
   [selectApp],
   (app) => app.openCount,
 );
+
+export const selectDbCred = createSelector(
+  [selectApp],
+  (app) => app.databaseCred,
+);

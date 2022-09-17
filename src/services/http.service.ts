@@ -18,28 +18,16 @@ type Response<D = any> = {
 type Method = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
 export class HTTPService {
-  private url: string;
-  private user: string;
-  private pass: string;
-  private db: string;
-
-  constructor() {
+  private async constructFetch(endpoint: string, method: Method, data?: any) {
     const { app } = store.getState();
     const { url, user, pass, db } = app.databaseCred;
-    this.url = url;
-    this.user = user;
-    this.pass = pass;
-    this.db = db;
-  }
-
-  private async constructFetch(endpoint: string, method: Method, data?: any) {
-    const d = await fetch(this.url + endpoint, {
+    const d = await fetch(url + endpoint, {
       method: method,
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Basic ' + btoa(`${this.user}:${this.pass}`),
-        NS: 'test',
-        DB: 'test',
+        Authorization: 'Basic ' + btoa(`${user}:${pass}`),
+        NS: db,
+        DB: db,
       },
       body: data,
     });
