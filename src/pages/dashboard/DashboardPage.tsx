@@ -1,12 +1,13 @@
 import { FC } from 'react';
 import { Dashboard } from '@src/features';
+import { BaseContainer } from '@src/components';
 
 interface DashboardPageProps {}
 
 export const DashboardPage: FC<DashboardPageProps> = () => {
   return (
-    <div>
+    <BaseContainer animate>
       <Dashboard />
-    </div>
+    </BaseContainer>
   );
 };
