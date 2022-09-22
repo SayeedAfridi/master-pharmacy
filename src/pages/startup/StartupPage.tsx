@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { Startup } from '@src/features';
-import { BaseContainer } from '@src/components';
+import { AnimatedContent } from '@src/lib/layout';
 
 export const StartupPage: FC = () => {
   return (
-    <BaseContainer animate>
+    <AnimatedContent>
       <Startup />
-    </BaseContainer>
+    </AnimatedContent>
   );
 };

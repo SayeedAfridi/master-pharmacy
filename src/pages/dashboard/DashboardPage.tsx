@@ -1,13 +1,13 @@
 import { FC } from 'react';
 import { Dashboard } from '@src/features';
-import { BaseContainer } from '@src/components';
+import { AnimatedContent } from '@src/lib/layout';
 
 interface DashboardPageProps {}
 
 export const DashboardPage: FC<DashboardPageProps> = () => {
   return (
-    <BaseContainer animate>
+    <AnimatedContent>
       <Dashboard />
-    </BaseContainer>
+    </AnimatedContent>
   );
 };
