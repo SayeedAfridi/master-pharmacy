@@ -68,10 +68,11 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
+        "maximized": true,
+        "minHeight": 700,
         "resizable": true,
         "title": "master-pharmacy",
-        "width": 800
+        "minWidth": 1200
       }
     ]
   }
