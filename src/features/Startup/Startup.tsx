@@ -19,10 +19,15 @@ import errAnimation from '@src/assets/animations/no-internet.json';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectDbCred } from '@src/lib/redux/app/app.selsectors';
 import { appActions } from '@src/lib/redux/app/app.slice';
+import { useNavigate } from 'react-router-dom';
+import { routes } from '@src/config/routes';
+
+const timeOut = 3 * 1000;
 
 export const Startup: FC = () => {
   const [checkedDb, setCheckedDb] = useState<boolean>(false);
   const [dbError, setDbError] = useState<any>();
+  const navigate = useNavigate();
 
   const checkDB = async () => {
     try {
@@ -31,11 +36,21 @@ export const Startup: FC = () => {
         setDbError(true);
         throw new Error('Status not ok');
       }
-      setCheckedDb(true);
+      setTimeout(() => {
+        setCheckedDb(true);
+      }, timeOut);
     } catch (error: any) {
-      setDbError(true);
+      setTimeout(() => {
+        setDbError(true);
+      }, timeOut);
     }
   };
+
+  useEffect(() => {
+    if (checkedDb) {
+      navigate(routes.dashboard, { replace: true });
+    }
+  }, [checkedDb]);
 
   useEffect(() => {
     checkDB();
@@ -43,10 +58,10 @@ export const Startup: FC = () => {
 
   return (
     <div className={classes.container}>
-      <Visibility on={true}>
-        <DbConnectForm />
+      <Visibility on={dbError}>
+        <DbConnectForm onConnect={() => setCheckedDb(true)} />
       </Visibility>
-      <Visibility on={false && (!checkedDb || !dbError)}>
+      <Visibility on={!checkedDb && !dbError}>
         <Checking />
       </Visibility>
     </div>
@@ -55,7 +70,11 @@ export const Startup: FC = () => {
 
 const { Content } = Layout;
 
-const DbConnectForm: FC = () => {
+interface DbConnectFormProps {
+  onConnect?: () => void;
+}
+
+const DbConnectForm: FC<DbConnectFormProps> = ({ onConnect }) => {
   const dbCred = useSelector(selectDbCred);
   const url = new URL(dbCred.url);
   const [form] = Form.useForm();
@@ -77,6 +96,7 @@ const DbConnectForm: FC = () => {
           throw new Error('Status not ok');
         }
         setLoading(false);
+        onConnect?.();
       } catch (error) {
         setLoading(false);
         notification.error({

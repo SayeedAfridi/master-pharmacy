@@ -1,6 +1,6 @@
+import { FC } from 'react';
 import { Startup } from '@src/features';
-import React from 'react';
 
-export const StartupPage = () => {
+export const StartupPage: FC = () => {
   return <Startup />;
 };
