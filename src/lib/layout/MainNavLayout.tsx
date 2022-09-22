@@ -71,7 +71,6 @@ export const MainNavLayout: FC<{ children: ReactNode }> = ({ children }) => {
               margin: 0,
               padding: 0,
               minHeight: 280,
-              background: 'white',
             }}
           >
             {children}
