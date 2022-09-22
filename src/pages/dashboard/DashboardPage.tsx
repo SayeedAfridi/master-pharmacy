@@ -6,7 +6,7 @@ interface DashboardPageProps {}
 
 export const DashboardPage: FC<DashboardPageProps> = () => {
   return (
-    <AnimatedContent>
+    <AnimatedContent style={{ padding: 24 }}>
       <Dashboard />
     </AnimatedContent>
   );
