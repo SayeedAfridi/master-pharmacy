@@ -32,7 +32,7 @@ export const Startup: FC = () => {
   const checkDB = async () => {
     try {
       const res = await api.db.checkConnection();
-      if (res[0].status !== 'OK') {
+      if (res.status !== 'OK') {
         setDbError(true);
         throw new Error('Status not ok');
       }
@@ -89,12 +89,12 @@ const DbConnectForm: FC<DbConnectFormProps> = ({ onConnect }) => {
       try {
         setLoading(true);
         const res = await api.db.checkConnection();
+        if (res.status !== 'OK') {
+          throw new Error('Status not ok');
+        }
         notification.success({
           message: 'Database connected!',
         });
-        if (res[0].status !== 'OK') {
-          throw new Error('Status not ok');
-        }
         setLoading(false);
         onConnect?.();
       } catch (error) {

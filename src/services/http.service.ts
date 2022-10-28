@@ -1,70 +1,58 @@
-import store from '@src/lib/redux/store';
+import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 export interface Request {
   endpoint: string;
+  config?: AxiosRequestConfig;
 }
 
 export interface PostRequest<T> {
   endpoint: string;
   data: T;
+  config?: AxiosRequestConfig;
 }
 
-type Response<D = any> = {
-  url: string;
-  headers: Headers;
-  data: D;
-};
-
-type Method = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
-
 export class HTTPService {
-  private async constructFetch(endpoint: string, method: Method, data?: any) {
-    const { app } = store.getState();
-    const { url, user, pass, db } = app.databaseCred;
-    const d = await fetch(url + endpoint, {
-      method: method,
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Basic ' + btoa(`${user}:${pass}`),
-        NS: db,
-        DB: db,
-      },
-      body: data,
-    });
-    const res = await d.json();
-    return {
-      url: d.url,
-      headers: d.headers,
-      data: res,
-    };
+  private _instance: AxiosInstance;
+
+  constructor(instance: AxiosInstance) {
+    this._instance = instance;
   }
 
-  protected async get<R = any>({ endpoint }: Request): Promise<Response<R>> {
-    return this.constructFetch(endpoint, 'GET');
+  protected async get<R = any>({
+    endpoint,
+    config,
+  }: Request): Promise<AxiosResponse<R>> {
+    return this._instance.get(endpoint, config);
   }
 
   protected async post<T = any, R = any>({
     endpoint,
     data,
-  }: PostRequest<T>): Promise<Response<R>> {
-    return this.constructFetch(endpoint, 'POST', data);
+    config,
+  }: PostRequest<T>): Promise<AxiosResponse<R>> {
+    return this._instance.post(endpoint, data, config);
   }
 
-  protected async delete<R = any>({ endpoint }: Request): Promise<Response<R>> {
-    return this.constructFetch(endpoint, 'DELETE');
+  protected async delete<R = any>({
+    endpoint,
+    config,
+  }: Request): Promise<AxiosResponse<R>> {
+    return this._instance.delete(endpoint, config);
   }
 
   protected async put<T = any, R = any>({
     endpoint,
     data,
-  }: PostRequest<T>): Promise<Response<R>> {
-    return this.constructFetch(endpoint, 'PUT', data);
+    config,
+  }: PostRequest<T>): Promise<AxiosResponse<R>> {
+    return this._instance.put(endpoint, data, config);
   }
 
   protected async patch<T = any, R = any>({
     endpoint,
     data,
-  }: PostRequest<T>): Promise<Response<R>> {
-    return this.constructFetch(endpoint, 'PATCH', data);
+    config,
+  }: PostRequest<T>): Promise<AxiosResponse<R>> {
+    return this._instance.patch(endpoint, data, config);
   }
 }
