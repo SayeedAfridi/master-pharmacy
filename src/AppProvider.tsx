@@ -6,6 +6,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { HashRouter } from 'react-router-dom';
 import { MainNavLayout } from '@src/lib/layout';
 import { ErrorBoundary } from '@src/components/ErrorBoundary';
+import { ToastContainer } from 'react-toastify';
 
 const AppProvider: FC = () => {
   return (
@@ -19,6 +20,7 @@ const AppProvider: FC = () => {
           </HashRouter>
         </PersistGate>
       </Provider>
+      <ToastContainer />
     </ErrorBoundary>
   );
 };
