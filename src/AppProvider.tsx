@@ -5,7 +5,7 @@ import store, { persistor } from '@src/lib/redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { HashRouter } from 'react-router-dom';
 import { MainNavLayout } from '@src/lib/layout';
-import ErrorBoundary from 'antd/lib/alert/ErrorBoundary';
+import { ErrorBoundary } from '@src/components/ErrorBoundary';
 
 const AppProvider: FC = () => {
   return (

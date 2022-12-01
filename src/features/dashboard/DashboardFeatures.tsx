@@ -5,7 +5,7 @@ interface DashboardProps {}
 export const Dashboard: React.FC<DashboardProps> = () => {
   return (
     <div>
-      <h1>Dashboard</h1>
+      <h1 className='font-bold'>Dashboard</h1>
     </div>
   );
 };
